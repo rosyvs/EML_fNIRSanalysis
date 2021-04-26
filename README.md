@@ -1,8 +1,10 @@
 # DotNIRSPythonTools
-<<<<<<< HEAD
-<<<<<<< HEAD
 Preprocessing Objects and Methods meant to work on .nirs files obtained from
 nirsSport2 devices from NIRx.
+
+# Putting data into this repo.
+
+Please make a folder called `./data/zipped/` and place all of the zip archives of data in there. I tried 17 times to make this easy, but the data for EML is just too large. Also, not storing data here means I can keep this repository public.
 
 ### Current State.
 Currently, this code is for use purely for cleaning, extracting, and labeling the
@@ -30,16 +32,7 @@ that it may be specific to this one case. These instances, I believe, are commen
 `./wipe_state_clean.py`.
 
 *Only has been tested on Windows.* It should still run on mac and linux, however.
-<<<<<<< HEAD
 
 ### Notes:
 1. Data has been removed from the EML1_055.zip folder so that it could be stored in this repository.
 2. Even still, this data needs to be stored using git-lfs. It may not properly download if you do not have git-lfs on your machine.
-=======
- Preprocessing Objects and Methods meant to work on .nirs files.
->>>>>>> parent of 650b162 (Built and commented EML_Localizer pipeline.)
-=======
->>>>>>> parent of 9bdd682 (removed more cruft from the .zip file)
-=======
- Preprocessing Objects and Methods meant to work on .nirs files.
->>>>>>> parent of 650b162 (Built and commented EML_Localizer pipeline.)
