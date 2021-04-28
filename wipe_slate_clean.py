@@ -12,7 +12,8 @@ def main():
     """
 
     paths = ["./data/unzipped/", "./data/toolbox_staging/",
-             "./data/triggers_truncated_localizers"]
+             "./data/triggers_truncated_localizers",
+             "./data/aperture/unzipped/"]
 
     for p in paths:
         if os.path.exists(p):

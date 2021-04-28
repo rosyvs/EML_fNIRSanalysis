@@ -51,7 +51,7 @@ job.cite
 
 % % End Pre-processing
 
-% Fitting Data to GLM -------------------
+% Fitting Data to GLM ------------------- 
 job=nirs.modules.GLM
 job.AddShortSepRegressors=true
 SubjStats=job.run(mot_corr)
@@ -71,24 +71,23 @@ job.cite
 
 % [1 0 0 -1] - Main effect → Sentence > Nonword list
 % [1 -1 1 -1] - Syntactic  → (Sentences (S,J)) > (Words (W,N))
-% [1 1 -1 -1] - Semantic   → (sensical (S,W)) > (nonsensical (J, N))
-% [1 -1 -1  1]  ->  interaction step by step: Has syntax (Semantics yes >  Semantics no)
+% [1 1 -1 -1] - Semantic   → (sensical (S,W)) > (nonsensical (J, N)) 
+% [1 -1 -1  1]  ->  interaction step by step: Has syntax (Semantics yes >  Semantics no)  
 
-c_t = [1 1 1 1;
+c_t = [1 1 1 1; 
        1 0 0 -1;
        1 -1 1 -1;
        1 1 -1 -1;
        1 -1 -1 1];
-
+ 
 % ContrastStats = GroupStats.ftest(c)
 ContrastStats = GroupStats.ttest(c_t)
 
 ContrastStats.table
 
-ContrastStats.probe.defaultdrawfcn = '2D';
-% ContrastStats.probe.defaultdrawfcn = '3D Mesh';
-% ContrastStats.draw
-ContrastStats.printAll('tstat', [-10 10], 'q < 0.05', './output/figs', 'jpg')
+ContrastStats.probe.defaultdrawfcn = '3D Mesh';
+ContrastStats.draw
+ContrastStats.printAll('tstat', [-10 10], 'q < 0.05', './output/figs', '.')
 
 % Write out table to csv ---
 
@@ -147,13 +146,20 @@ writetable(ContrastStats.table, './output/loc_con_results.csv')
 %             15 22;
 %             16 15;
 %             16 23];
-%
-%
+%         
+%         
 % lang_roi = channels([9:11], :)
 % lang_roi_2 = channels([16:19], :)
-%
+% 
 % Region{1} = table(lang_roi(:,1), lang_roi(:,2), 'VariableNames',{'source', 'detector'});
 % Region{2} = table(lang_roi_2(:,1), lang_roi_2(:,2), 'VariableNames',{'source', 'detector'});
-%
+% 
 % ROItable=nirs.util.roiAverage(ContrastStats,Region,{'region1','region2'});
 % disp(ROItable);
+        
+        
+
+
+
+
+

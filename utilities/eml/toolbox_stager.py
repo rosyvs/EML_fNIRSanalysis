@@ -12,6 +12,12 @@ class ToolboxStager(object):
 
 
     def clean_df_of_sketchy_sessions(self, df):
+        """Looks through the data state table and only pulls files that appear to
+        be in suffcient enough shape in order for analysis to be run on them.
+        (i.e. no missing triggers, no split sessions, etc.)
+
+        Args:
+            df: the data"""
 
         # Only move files whose triggers are all there for localizer.
         # Drop any row where a file is missing.
