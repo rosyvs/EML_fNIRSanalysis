@@ -2,6 +2,8 @@ ROOT_DATA_DIR = '..\data\triggers_truncated_localizers'
 
 raw = nirs.io.loadDirectory(ROOT_DATA_DIR, {'Subject'}, {@nirs.io.loadNIRx})
 
+% STIM ORDER LOCALIZERS
+
 demographics = nirs.createDemographicsTable(raw);
 
 j = nirs.modules.RemoveStimless( );
@@ -9,10 +11,10 @@ j = nirs.modules.RemoveStimless( );
 j = nirs.modules.RenameStims( j );
 
 j.listOfChanges = {'stim_channel1' 'start'
-                   'stim_channel2' 'a_loc_sentences'
-                   'stim_channel3' 'b_loc_words'
-                   'stim_channel4' 'c_loc_jabsent'
-                   'stim_channel5' 'd_loc_jabwords'};
+                   'stim_channel2' 'aloc_sentences'
+                   'stim_channel3' 'bloc_words'
+                   'stim_channel4' 'cloc_jabsent'
+                   'stim_channel5' 'dloc_jabwords'};
 
 stimsChanged = j.run(raw);
 
@@ -87,9 +89,9 @@ ContrastStats.probe.defaultdrawfcn = '2D';
 % ContrastStats.probe.defaultdrawfcn = '3D Mesh';
 % ContrastStats.draw
 ContrastStats.printAll('tstat', [-10 10], 'q < 0.05', './output/figs', 'jpg')
-writetable(ContrastStats.table, './output/loc_con_results.csv')
 % Write out table to csv ---
-% writetable('./loc_con_results.csv', ConstrastStats.table)
+
+writetable(ContrastStats.table, './output/loc_con_results.csv')
 
 % ROI Stuff.
 % EML 1616.

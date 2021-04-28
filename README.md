@@ -32,7 +32,3 @@ that it may be specific to this one case. These instances, I believe, are commen
 `./wipe_state_clean.py`.
 
 *Only has been tested on Windows.* It should still run on mac and linux, however.
-
-### Notes:
-1. Data has been removed from the EML1_055.zip folder so that it could be stored in this repository.
-2. Even still, this data needs to be stored using git-lfs. It may not properly download if you do not have git-lfs on your machine.
