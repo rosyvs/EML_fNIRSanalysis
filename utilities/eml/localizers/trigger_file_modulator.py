@@ -33,6 +33,7 @@ class TriggerModulator(object):
         if not os.path.exists(self.EXPORT_DIR):
             os.makedirs(self.EXPORT_DIR)
 
+        # remap events with this string to these trigger values, as the raw data uses 22 for all conditions 
         self.loc_map = {"1_sent": 51,
                        "2_words": 52,
                        "3_jabsent": 53,

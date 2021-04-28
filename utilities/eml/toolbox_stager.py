@@ -12,7 +12,7 @@ class ToolboxStager(object):
 
 
     def clean_df_of_sketchy_sessions(self, df):
-
+        # TODO this does NOT generate a warning if there is no .tri file - only if triggers are missing in an existing .tri file.
         # Only move files whose triggers are all there for localizer.
         # Drop any row where a file is missing.
         df.dropna(inplace=True)

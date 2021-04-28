@@ -19,11 +19,17 @@ def main():
     running_fpath = os.path.dirname(os.path.realpath(__file__))
     file_finder = FileFinder() # This is used by a lot of the classes to find fpaths to data, so it's best if it's created here and passed to them.
 
-    unzipper = RecursiveUnzipper()
     table_generator = DataTableGenerator(running_fpath, file_finder) # Data table gen needs CURRENT fpath (script execution fpath) and file finder object.
 
     # Run the objects pipelines to create new copies of data.
-    unzipped_fpaths = unzipper.extract_files()
+    
+    # Unzipper only required if you downloaded each participant folder from Dropbox website as a zip.
+   
+    # unzipper = RecursiveUnzipper()
+    # unzipped_fpaths = unzipper.extract_files()
+    ## If you have direct access to the Dropbox (i.e. it is already synced to your machine) simply copy all the required 
+    ## participant directories into ./data/unzipped/ - RVS
+    
 
     # Create a data state table. This should be both human readable as well as
     # used as input for the next steps in the process.

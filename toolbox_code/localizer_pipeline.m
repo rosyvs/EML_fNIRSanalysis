@@ -1,4 +1,4 @@
-ROOT_DATA_DIR = 'E:\eye_mind_local\eye_mind_local\data\triggers_truncated_localizers'
+ROOT_DATA_DIR = '..\data\triggers_truncated_localizers'
 
 raw = nirs.io.loadDirectory(ROOT_DATA_DIR, {'Subject'}, {@nirs.io.loadNIRx})
 
@@ -9,10 +9,10 @@ j = nirs.modules.RemoveStimless( );
 j = nirs.modules.RenameStims( j );
 
 j.listOfChanges = {'stim_channel1' 'start'
-                   'stim_channel2' '1_loc_sentences'
-                   'stim_channel3' '2_loc_words'
-                   'stim_channel4' '3_loc_jabsent'
-                   'stim_channel5' '4_loc_jabwords'};
+                   'stim_channel2' 'a_loc_sentences'
+                   'stim_channel3' 'b_loc_words'
+                   'stim_channel4' 'c_loc_jabsent'
+                   'stim_channel5' 'd_loc_jabwords'};
 
 stimsChanged = j.run(raw);
 
@@ -38,7 +38,7 @@ job.cite
 
 % Short Channels
 job=nirs.modules.LabelShortSeperation()
-job.max_distance=15
+job.max_distance=8;
 hb=job.run(hb)
 
 % Motion Correction VIA Acc.
@@ -66,23 +66,28 @@ job.cite
 
 % Contrasts
 
-
-% [1 0 0 -1] - Main effect → Sentence > Nonword list
+% [1 1 1 1] - basic condition > baseline
+% [1 0 0 -1] - Fedorenko → Sentence > Nonword list
 % [1 -1 1 -1] - Syntactic  → (Sentences (S,J)) > (Words (W,N))
 % [1 1 -1 -1] - Semantic   → (sensical (S,W)) > (nonsensical (J, N))
+% [1 1 -1 -1] - Interaction   → Has syntax (Semantics yes >  Semantics no)
 
-c_t = [1 0 0 -1;
+c_t = [1 1 1 1
+       1 0 0 -1;
        1 -1 1 -1;
-       1 1 -1 -1];
+       1 1 -1 -1;
+       1 -1 -1 1];
 
 % ContrastStats = GroupStats.ftest(c)
 ContrastStats = GroupStats.ttest(c_t)
 
 ContrastStats.table
 
-ContrastStats.probe.defaultdrawfcn = '3D Mesh';
-ContrastStats.draw
-
+ContrastStats.probe.defaultdrawfcn = '2D';
+% ContrastStats.probe.defaultdrawfcn = '3D Mesh';
+% ContrastStats.draw
+ContrastStats.printAll('tstat', [-10 10], 'q < 0.05', './output/figs', 'jpg')
+writetable(ContrastStats.table, './output/loc_con_results.csv')
 % Write out table to csv ---
 % writetable('./loc_con_results.csv', ConstrastStats.table)
 
