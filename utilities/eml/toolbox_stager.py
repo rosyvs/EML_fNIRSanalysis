@@ -4,7 +4,7 @@ import pandas as pd
 from pathlib import Path
 
 class ToolboxStager(object):
-    def __init__(self, running_fpath, data_table_fpath):
+    def __init__(self, running_fpath, data_table_fpath, split_sessions="ignore"):
         self._this_fpath = running_fpath
         self.data_table_fpath = data_table_fpath
         self.ROOT_DIR = Path(f"{self._this_fpath}/data/unzipped/")
@@ -42,9 +42,19 @@ class ToolboxStager(object):
 
         staged_fpaths = []
         for row in df.iterrows():
-            print(f"Moving NIRS files from: {row[1]['nirs_dir']}, to: {self.STAGING_DIR}/{row[1]['participant']}/")
-            shutil.copytree(Path(row[1]["nirs_dir"][2:-2]), f"{self.STAGING_DIR}/{row[1]['participant']}/")
-            staged_fpaths.append(f"{self.STAGING_DIR}/{row[1]['participant']}/")
+            if len(row[1]["nirs_dir"].split(', ')) > 1:
+                continue
+            for i, session in enumerate(row[1]["nirs_dir"].split(', ')):
+                # clean path string.
+                for char in ["[", "]", "'"]:
+                    session = session.strip(char)
+                if i > 0:
+                    tag = f"_s{i+1}"
+                else:
+                    tag = ""
+                print(f"Moving NIRS files from: {session}, to: {self.STAGING_DIR}/{row[1]['participant']}{tag}/")
+                shutil.copytree(Path(session), f"{self.STAGING_DIR}/{row[1]['participant']}{tag}/")
+                staged_fpaths.append(f"{self.STAGING_DIR}/{row[1]['participant']}/")
 
         return staged_fpaths
 
