@@ -1,0 +1,1 @@
+function [nirs_f] = make_stim_mat(trigger_tbl, nir)
