@@ -131,7 +131,7 @@ class DataTableGenerator(object):
             loc_order (dict): key is ID, val is a list with reading strings as values.
         """
 
-        # RVS: might be more robust to string match the sentences themselves as in my EEG code
+        # RVS: might be more ribust to string match the sentences themselves as in my EEG code
 
         read_order = {}
 
