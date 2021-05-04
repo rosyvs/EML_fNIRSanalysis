@@ -13,18 +13,21 @@ classdef StimMatrixMaker
             if nargin == 2     
                 this.trigger_table = readtable(trig_fpath);
                 this.nirs_f = load(nirs_fpath, '-mat');
-                [this.trigger_matrix, this.num_samples, this.num_stims] = DefineTriggerMatrix( this );
                 this.trigger_ch_map = DefineTriggerChannelMap( this );
+                [this.trigger_matrix, this.num_samples, this.num_stims] = DefineTriggerMatrix( this );
             end
         end
         
+        % Maps the stim channels in the array to the trigger
+        % values in the table.
         function chmap = DefineTriggerChannelMap( this )
-            
-            ch
-            
             stims = unique(sort(this.trigger_table.stimType));
-            disp(stims);
-            chmap = 0;
+            vals = zeros(length(stims), 0)
+            for stim = 1 : length(stims)
+                vals(stim) = stim
+            end
+            
+            chmap = containers.Map(stims, vals)
         end
         
         % Set Properties - Make Stim Matrix
@@ -43,15 +46,18 @@ classdef StimMatrixMaker
                 mrow = this.trigger_table(row, :);
                 onset = mrow.onset;
                 duration = mrow.duration;
-                trig_col = mrow.stimType;
+                trig_col = this.trigger_ch_map(mrow.stimType)
                 tm(onset:onset+duration, trig_col) = 1;
             end
         end
        
-        function nn = PushMatrixToNirs( this )
+        function nn = PushMatrixToNirs( this, out_fpath )
             new_nirs = this.nirs_f;
             new_nirs.s = this.trigger_matrix;
             nn = new_nirs;
+            if nargin == 1
+                save(out_fpath, 'nn', '-mat');
+            end
         end
         
     end

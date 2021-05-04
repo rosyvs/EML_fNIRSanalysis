@@ -52,14 +52,16 @@ classdef StimMatrixMaker
         end
        
         function nn = PushMatrixToNirs( this, out_fpath )
-            new_nirs = this.nirs_f;
-            new_nirs.s = this.trigger_matrix;
-            nn = new_nirs;
-            if length(out_fpath) > 0
+            nn = this.nirs_f;
+            nn.s = this.trigger_matrix;
+            disp(nn)
+            if nargin == 2
                 save(out_fpath, 'nn', '-mat');
+                disp('NOTE: In order to load new nirs file into toolbox, be sure to include relevant probe files within the directory this new .nirs file has been stored.')
+            else
+                disp('No fpath provided to save file to! Returning nirs object.')
             end
         end
-        
     end
 end
 
