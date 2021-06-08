@@ -1,9 +1,11 @@
 import pandas as pd
 
-cond_map = {'aloc_sentences+bloc_words+cloc_jabsent+dloc_jabwords': "Localizer v. Not (Baseline)",
-             'aloc_sentences-dloc_jabwords': "Federonko Contrast (Sent v. Wordlist)",
-             'aloc_sentences-bloc_words+cloc_jabsent-dloc_jabwords': "Syntactic (Sentence v. Non Sentence)",
-             'aloc_sentences+bloc_words-cloc_jabsent-dloc_jabwords': "Semantic (Words v. Non Words)"}
+cond_map = {'aloc_sentences+bloc_words+cloc_jabsent+dloc_jabwords': "Localizer v. Baseline",
+             'aloc_sentences-dloc_jabwords': "Federonko Contrast (Sentences v. Non-words)",
+             'aloc_sentences-bloc_words+cloc_jabsent-dloc_jabwords': "Syntactic",
+             'aloc_sentences+bloc_words-cloc_jabsent-dloc_jabwords': "Semantic",
+             'aloc_sentences-bloc_words-cloc_jabsent+dloc_jabwords': "Sem*Syn Interaction"
+             }
 
 df = pd.read_csv("../loc_con_results.csv")
 df["Contrast"] = df["cond"].map(cond_map)

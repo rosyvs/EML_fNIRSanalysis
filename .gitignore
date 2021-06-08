@@ -115,3 +115,6 @@ dmypy.json
 
 # data
 data/
+
+# figures and outputs
+toolbox_code/output/

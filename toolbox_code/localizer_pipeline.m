@@ -85,10 +85,10 @@ ContrastStats = GroupStats.ttest(c_t)
 
 ContrastStats.table
 
-ContrastStats.probe.defaultdrawfcn = '2D';
+ContrastStats.probe.defaultdrawfcn = '10-20';
 % ContrastStats.probe.defaultdrawfcn = '3D Mesh';
 % ContrastStats.draw
-ContrastStats.printAll('tstat', [-10 10], 'q < 0.05', './output/figs', 'jpg')
+ContrastStats.printAll('tstat', [-6 6], 'q < 0.05', './output/figs', 'jpg')
 % Write out table to csv ---
 
 writetable(ContrastStats.table, './output/loc_con_results.csv')
